@@ -391,9 +391,9 @@ class Tensor:
     def mean(self, dim: Optional[int] = None) -> Tensor:
         """Calculate the mean of the tensor along the specified dimension."""
         if dim is None:
-            return self.sum(dim) / self.shape[dim]
-        else:
             return self.sum() / self.size
+        else:
+            return self.sum(dim) / self.shape[dim]
 
     def permute(self, *order: int) -> Tensor:
         """Permute the dimensions of the tensor according to the specified order."""
@@ -403,6 +403,6 @@ class Tensor:
         """Change the shape of the tensor to the specified shape."""
         return View.apply(self, tensor(list(shape)))
 
-    def zero_grad(self) -> None:
+    def zero_grad_(self) -> None:
         """Reset the gradient of this tensor."""
         self.grad = None
