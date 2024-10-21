@@ -12,6 +12,8 @@ from .tensor_data import (
     index_to_position,
 )
 
+import numpy as np
+
 if TYPE_CHECKING:
     from .tensor import Tensor
     from .tensor_data import Shape, Storage, Strides
@@ -272,8 +274,8 @@ def tensor_map(
         in_shape: Shape,
         in_strides: Strides,
     ) -> None:
-        out_index = [0] * len(out_shape)
-        in_index = [0] * len(in_shape)
+        out_index = np.array(out_shape)
+        in_index = np.array(in_shape)
 
         for i in range(len(out)):
             to_index(i, out_shape, out_index)
@@ -325,9 +327,9 @@ def tensor_zip(
         b_shape: Shape,
         b_strides: Strides,
     ) -> None:
-        out_index = [0] * len(out_shape)
-        a_index = [0] * len(a_shape)
-        b_index = [0] * len(b_shape)
+        out_index = np.array(out_shape)
+        a_index = np.array(a_shape)
+        b_index = np.array(b_shape)
 
         for i in range(len(out)):
             to_index(i, out_shape, out_index)
@@ -368,7 +370,7 @@ def tensor_reduce(
         a_strides: Strides,
         reduce_dim: int,
     ) -> None:
-        out_index = [0] * len(out_shape)
+        out_index = np.array(out_shape)
         for i in range(len(out)):
             to_index(i, out_shape, out_index)
             out_position = index_to_position(out_index, out_strides)
